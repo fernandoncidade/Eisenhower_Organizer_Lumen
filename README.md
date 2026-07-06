@@ -10,16 +10,16 @@
 
 ## <a id="ptbr"></a>Português (BR)
 
-> **Observação:** Este repositório refere-se à versão **v2026.7.2.0** do projeto EISENHOWER ORGANIZER. Apoie o projeto e adquira a versão paga por meio do link: [Instalar via Microsoft Store](https://apps.microsoft.com/detail/9P289X0185C3)
+> **Observação:** Este repositório refere-se à versão **v2026.7.2.1** do projeto EISENHOWER ORGANIZER. Apoie o projeto e adquira a versão paga por meio do link: [Instalar via Microsoft Store](https://apps.microsoft.com/detail/9P289X0185C3)
 
-> **Observação:** Este repositório refere-se à versão **v2026.7.2.0** do 📚 Projeto Lúmen. Apoie o projeto e adquira a versão paga através do link: [Instalar via Microsoft Store](https://apps.microsoft.com/detail/9N70CLLMVRPN)
+> **Observação:** Este repositório refere-se à versão **v2026.7.2.1** do 📚 Projeto Lúmen. Apoie o projeto e adquira a versão paga através do link: [Instalar via Microsoft Store](https://apps.microsoft.com/detail/9N70CLLMVRPN)
 
 <details>
 <summary>Clique para expandir o README em português</summary>
 
 # EISENHOWER ORGANIZER / LÚMEN - Organizador de tarefas, estudos e foco
 
-Versão: v2026.7.2.0<br>
+Versão: v2026.7.2.1<br>
 Data técnica desta revisão: 2 de julho de 2026<br>
 Autor: Fernando Nillsson Cidade<br>
 
@@ -251,16 +251,16 @@ Fernando Nillsson Cidade
 
 ## <a id="enus"></a>English (US)
 
-> **Note:** This repository refers to the **v2026.7.2.0** version of the EISENHOWER ORGANIZER project. Support the project and purchase the paid version through the link: [Install via Microsoft Store](https://apps.microsoft.com/detail/9P289X0185C3)
+> **Note:** This repository refers to the **v2026.7.2.1** version of the EISENHOWER ORGANIZER project. Support the project and purchase the paid version through the link: [Install via Microsoft Store](https://apps.microsoft.com/detail/9P289X0185C3)
 
-> **Note:** This repository refers to the **v2026.7.2.0** version of the 📚 Lúmen Project. Support the project and purchase the paid version through the link: [Instalar via Microsoft Store](https://apps.microsoft.com/detail/9N70CLLMVRPN)
+> **Note:** This repository refers to the **v2026.7.2.1** version of the 📚 Lúmen Project. Support the project and purchase the paid version through the link: [Instalar via Microsoft Store](https://apps.microsoft.com/detail/9N70CLLMVRPN)
 
 <details>
 <summary>Click to expand the README in English</summary>
 
 # EISENHOWER ORGANIZER / LÚMEN - Task, study, and focus organizer
 
-Version: v2026.7.2.0<br>
+Version: v2026.7.2.1<br>
 Technical revision date: July 2, 2026<br>
 Author: Fernando Nillsson Cidade<br>
 
