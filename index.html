@@ -50,6 +50,10 @@
       max-width: 100%;
     }
 
+    body.lightbox-open {
+      overflow: hidden;
+    }
+
     a {
       color: inherit;
     }
@@ -478,6 +482,121 @@
       font-weight: 700;
     }
 
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(12, 18, 15, .72);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .2s ease, visibility .2s ease;
+    }
+
+    .image-lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .image-lightbox__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(12, 18, 15, .28);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    .image-lightbox__panel {
+      position: relative;
+      z-index: 1;
+      width: min(1100px, 100%);
+      max-height: min(92vh, 980px);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .08);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .42);
+      transform: translateY(10px) scale(.98);
+      transition: transform .22s ease;
+    }
+
+    .image-lightbox.is-open .image-lightbox__panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .image-lightbox__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      color: #fff;
+    }
+
+    .image-lightbox__title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 750;
+    }
+
+    .image-lightbox__hint {
+      margin: 4px 0 0;
+      color: rgba(255, 255, 255, .72);
+      font-size: .92rem;
+    }
+
+    .image-lightbox__close {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 1.5rem;
+      line-height: 1;
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .image-lightbox__close:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, .18);
+    }
+
+    .image-lightbox__figure {
+      margin: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #0e1612;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .3);
+    }
+
+    .image-lightbox__image {
+      width: 100%;
+      max-height: 68vh;
+      object-fit: contain;
+      object-position: center center;
+      background: #0e1612;
+      cursor: zoom-out;
+    }
+
+    .image-lightbox__caption {
+      color: rgba(255, 255, 255, .84);
+      font-size: .95rem;
+    }
+
+    .clickable-image {
+      cursor: zoom-in;
+    }
+
     .store-band {
       background: #17211d;
       color: #fff;
@@ -891,6 +1010,22 @@
       </span>
     </div>
   </footer>
+  <div class="image-lightbox" id="image-lightbox" hidden aria-hidden="true">
+    <div class="image-lightbox__backdrop" data-lightbox-close></div>
+    <div class="image-lightbox__panel" role="dialog" aria-modal="true" aria-labelledby="image-lightbox-title">
+      <div class="image-lightbox__top">
+        <div>
+          <p class="image-lightbox__title" id="image-lightbox-title">Visualização ampliada</p>
+          <p class="image-lightbox__hint" id="image-lightbox-hint">Clique fora, pressione Esc ou use o botão para fechar.</p>
+        </div>
+        <button class="image-lightbox__close" type="button" aria-label="Fechar visualização ampliada" data-lightbox-close>×</button>
+      </div>
+      <figure class="image-lightbox__figure">
+        <img class="image-lightbox__image" id="image-lightbox-image" alt="" src="">
+      </figure>
+      <div class="image-lightbox__caption" id="image-lightbox-caption"></div>
+    </div>
+  </div>
   <script>
     (() => {
       const storageKey = "eisenhower-lumen-landing-language";
@@ -984,7 +1119,21 @@
           galleryAlt5: "Tela do módulo Mapa Mental com nós conectados em uma estrutura visual.",
           galleryAlt6: "Tela do Pomodoro no Eisenhower Organizer com controle de ciclos e listas de tarefas.",
           galleryAlt7: "Tela do Audiolivro no Lúmen com PDF aberto, controles de leitura, zoom, voz e régua de foco.",
-          galleryAlt8: "Tela do Audiolivro no Eisenhower Organizer com leitura assistida e controles para conteúdo textual."
+          galleryAlt8: "Tela do Audiolivro no Eisenhower Organizer com leitura assistida e controles para conteúdo textual.",
+          imageSrcs: {
+            hero: "assets/LISTAGEM/eisenhower/eisenhower/pt_BR/Captura%20de%20tela%202026-06-18%20101709.png",
+            gallery1: "assets/LISTAGEM/eisenhower/eisenhower/pt_BR/Captura%20de%20tela%202026-06-18%20101742.png",
+            gallery2: "assets/LISTAGEM/lumen/lumen/pt_BR/Captura%20de%20tela%202026-06-18%20103612.png",
+            gallery3: "assets/LISTAGEM/lumen/pomodoro/pt_BR/Captura%20de%20tela%202026-06-18%20103716.png",
+            gallery4: "assets/LISTAGEM/lumen/feynman/pt_BR/Captura%20de%20tela%202026-06-18%20103951.png",
+            gallery5: "assets/LISTAGEM/lumen/mapamental/pt_BR/Captura%20de%20tela%202026-05-15%20224703.png",
+            gallery6: "assets/LISTAGEM/eisenhower/pomodoro/pt_BR/Captura%20de%20tela%202026-06-18%20101831.png",
+            gallery7: "assets/LISTAGEM/lumen/audiolivro/pt_BR/Captura%20de%20tela%202026-05-15%20231254.png",
+            gallery8: "assets/LISTAGEM/eisenhower/audiolivro/pt_BR/Captura%20de%20tela%202026-05-16%20012546.png"
+          },
+          imageLightboxTitle: "Visualização ampliada",
+          imageLightboxHint: "Clique fora, pressione Esc ou use o botão para fechar.",
+          imageLightboxCloseLabel: "Fechar visualização ampliada"
         },
         en: {
           htmlLang: "en-US",
@@ -1074,7 +1223,21 @@
           galleryAlt5: "Mind Map module screen with connected nodes in a visual structure.",
           galleryAlt6: "Pomodoro screen in Eisenhower Organizer with cycle controls and task lists.",
           galleryAlt7: "Audiobook screen in Lúmen with an open PDF, reading controls, zoom, voice, and focus ruler.",
-          galleryAlt8: "Audiobook screen in Eisenhower Organizer with assisted reading and controls for text content."
+          galleryAlt8: "Audiobook screen in Eisenhower Organizer with assisted reading and controls for text content.",
+          imageSrcs: {
+            hero: "assets/LISTAGEM/eisenhower/eisenhower/en_US/Captura%20de%20tela%202026-06-18%20102635.png",
+            gallery1: "assets/LISTAGEM/eisenhower/eisenhower/en_US/Captura%20de%20tela%202026-06-18%20102657.png",
+            gallery2: "assets/LISTAGEM/lumen/lumen/en_US/Captura%20de%20tela%202026-06-18%20104353.png",
+            gallery3: "assets/LISTAGEM/lumen/pomodoro/en_US/Captura%20de%20tela%202026-06-18%20104445.png",
+            gallery4: "assets/LISTAGEM/lumen/feynman/en_US/Captura%20de%20tela%202026-06-18%20104727.png",
+            gallery5: "assets/LISTAGEM/lumen/mapamental/en_US/Captura%20de%20tela%202026-05-15%20224856.png",
+            gallery6: "assets/LISTAGEM/eisenhower/pomodoro/en_US/Captura%20de%20tela%202026-06-18%20102739.png",
+            gallery7: "assets/LISTAGEM/lumen/audiolivro/en_US/Captura%20de%20tela%202026-05-15%20232325.png",
+            gallery8: "assets/LISTAGEM/eisenhower/audiolivro/en_US/Captura%20de%20tela%202026-05-16%20013300.png"
+          },
+          imageLightboxTitle: "Expanded view",
+          imageLightboxHint: "Click outside, press Esc, or use the button to close.",
+          imageLightboxCloseLabel: "Close expanded view"
         }
       };
 
@@ -1174,6 +1337,112 @@
         ['#galeria .gallery figure:nth-child(8) img', 'alt', 'galleryAlt8']
       ];
 
+      const srcBindings = [
+        ['.showcase > img', 'hero'],
+        ['#galeria .gallery figure:nth-child(1) img', 'gallery1'],
+        ['#galeria .gallery figure:nth-child(2) img', 'gallery2'],
+        ['#galeria .gallery figure:nth-child(3) img', 'gallery3'],
+        ['#galeria .gallery figure:nth-child(4) img', 'gallery4'],
+        ['#galeria .gallery figure:nth-child(5) img', 'gallery5'],
+        ['#galeria .gallery figure:nth-child(6) img', 'gallery6'],
+        ['#galeria .gallery figure:nth-child(7) img', 'gallery7'],
+        ['#galeria .gallery figure:nth-child(8) img', 'gallery8']
+      ];
+
+      const refreshClickableImageLabels = () => {
+        document.querySelectorAll("img.clickable-image").forEach((imageElement) => {
+          imageElement.setAttribute("aria-label", `${imageElement.alt || "Imagem"}. Abrir visualização ampliada.`);
+        });
+      };
+
+      const imageLightbox = document.getElementById("image-lightbox");
+      const imageLightboxImage = document.getElementById("image-lightbox-image");
+      const imageLightboxCaption = document.getElementById("image-lightbox-caption");
+      const imageLightboxTitle = document.getElementById("image-lightbox-title");
+      const imageLightboxHint = document.getElementById("image-lightbox-hint");
+      const imageLightboxCloseButton = document.querySelector(".image-lightbox__close");
+      const imageLightboxCloseButtons = document.querySelectorAll("[data-lightbox-close]");
+      let activeLanguageCopy = null;
+
+      const openLightbox = (imageElement) => {
+        if (!imageLightbox || !imageLightboxImage || !imageLightboxCaption || !imageElement) {
+          return;
+        }
+
+        imageLightboxImage.src = imageElement.currentSrc || imageElement.src;
+        imageLightboxImage.alt = imageElement.alt || "Visualização ampliada da imagem";
+        imageLightboxCaption.textContent = imageElement.alt || "";
+        imageLightbox.hidden = false;
+        imageLightbox.setAttribute("aria-hidden", "false");
+        imageLightbox.classList.add("is-open");
+        document.body.classList.add("lightbox-open");
+        if (activeLanguageCopy) {
+          if (imageLightboxTitle) {
+            imageLightboxTitle.textContent = activeLanguageCopy.imageLightboxTitle;
+          }
+
+          if (imageLightboxHint) {
+            imageLightboxHint.textContent = activeLanguageCopy.imageLightboxHint;
+          }
+
+          if (imageLightboxCloseButton) {
+            imageLightboxCloseButton.setAttribute("aria-label", activeLanguageCopy.imageLightboxCloseLabel);
+          }
+        }
+      };
+
+      const closeLightbox = () => {
+        if (!imageLightbox || !imageLightboxImage) {
+          return;
+        }
+
+        imageLightbox.classList.remove("is-open");
+        imageLightbox.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("lightbox-open");
+        window.setTimeout(() => {
+          imageLightbox.hidden = true;
+          imageLightboxImage.src = "";
+          imageLightboxImage.alt = "";
+          if (imageLightboxCaption) {
+            imageLightboxCaption.textContent = "";
+          }
+        }, 200);
+      };
+
+      const registerImageLightbox = () => {
+        document.querySelectorAll("img:not(.image-lightbox__image)").forEach((imageElement) => {
+          imageElement.classList.add("clickable-image");
+          imageElement.addEventListener("click", () => openLightbox(imageElement));
+          imageElement.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              openLightbox(imageElement);
+            }
+          });
+          imageElement.setAttribute("tabindex", "0");
+          imageElement.setAttribute("role", "button");
+          imageElement.setAttribute("aria-label", `${imageElement.alt || "Imagem"}. Abrir visualização ampliada.`);
+        });
+
+        imageLightboxCloseButtons.forEach((button) => {
+          button.addEventListener("click", closeLightbox);
+        });
+
+        if (imageLightbox) {
+          imageLightbox.addEventListener("click", (event) => {
+            if (event.target === imageLightbox || event.target.hasAttribute("data-lightbox-close")) {
+              closeLightbox();
+            }
+          });
+        }
+
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && imageLightbox && !imageLightbox.hidden) {
+            closeLightbox();
+          }
+        });
+      };
+
       const setMeta = (selector, value) => {
         const element = document.querySelector(selector);
         if (element) {
@@ -1213,6 +1482,7 @@
       const applyLanguage = (language) => {
         const nextLanguage = language === "en" ? "en" : "pt";
         const copy = languages[nextLanguage];
+        activeLanguageCopy = copy;
 
         document.documentElement.lang = copy.htmlLang;
         document.title = copy.documentTitle;
@@ -1237,6 +1507,14 @@
           });
         });
 
+        srcBindings.forEach(([selector, key]) => {
+          document.querySelectorAll(selector).forEach((element) => {
+            element.setAttribute("src", copy.imageSrcs[key]);
+          });
+        });
+
+        refreshClickableImageLabels();
+
         const toggle = document.getElementById("language-toggle");
         if (toggle) {
           toggle.textContent = copy.toggleLabel;
@@ -1255,6 +1533,7 @@
         });
       }
 
+      registerImageLightbox();
       applyLanguage(currentLanguage);
     })();
   </script>
